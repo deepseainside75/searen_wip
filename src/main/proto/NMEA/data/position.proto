@@ -1,0 +1,27 @@
+syntax = "proto3";
+package data;
+
+option java_multiple_files = true;
+option optimize_for = SPEED;
+option java_package = "com.mgwy.proto.data";
+
+
+message PbPosition {
+  // latitude degrees
+  optional  double latitude = 1;
+  // longitude degrees
+  optional  double longitude = 2;
+  // altitude
+  optional  double altitude = 3;
+  // datum/coordinate system
+  optional  Datum datum = 4;
+}
+
+enum Datum {
+  /** World Geodetic System 1984, the default datum in GPS systems. */
+  WGS84 = 0;
+  /** North American Datum 1983 */
+  NAD83 = 1;
+  /** North American Datum 1927 */
+  NAD27 = 2;
+}

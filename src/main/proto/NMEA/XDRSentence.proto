@@ -1,0 +1,39 @@
+syntax = "proto3";
+package sentences;
+
+import "NMEA/data/source_identification.proto";
+import "NMEA/data/position.proto";
+
+option java_multiple_files = true;
+option optimize_for = SPEED;
+option java_package = "com.mgwy.proto.sentence";
+
+
+
+message PbXDR {
+    optional  data.PbSourceIdentification source = 1;
+    optional  string first_transducer_type = 2;
+    optional  double first_transducer_value = 3;
+    optional  string first_transducer_unit_of_measure = 4;
+    optional  string first_transducer_id = 5;
+
+    optional  string second_transducer_type = 6;
+    optional  double second_transducer_value = 7;
+    optional  string second_transducer_unit_of_measure = 8;
+    optional  string second_transducer_id = 9;
+
+    optional  string third_transducer_type = 10;
+    optional  double third_transducer_value = 11;
+    optional  string third_transducer_unit_of_measure = 12;
+    optional  string third_transducer_id = 13;
+
+    optional  string fourth_transducer_type = 14;
+    optional  double fourth_transducer_value = 15;
+    optional  string fourth_transducer_unit_of_measure = 16;
+    optional  string fourth_transducer_id = 17;
+
+    optional  double heading = 18;
+    optional  double pith = 19;
+    optional  double roll = 20;
+    optional  double sins = 21;
+}

@@ -1,0 +1,23 @@
+syntax = "proto3";
+package sentences;
+
+import "NMEA/data/source_identification.proto";
+import "NMEA/data/position.proto";
+
+option java_multiple_files = true;
+option optimize_for = SPEED;
+option java_package = "com.mgwy.proto.sentence";
+
+
+
+message PbVHW {
+    optional  data.PbSourceIdentification source = 1;
+    optional  double water_heading_t = 2;
+    optional  string water_heading_true = 3;
+    optional  double water_heading_m = 4;
+    optional  string water_heading_magnetic = 5;
+    optional  double water_speed_kn = 6;
+    optional  string water_speed_knots = 7;
+    optional  double water_speed_kmh = 8;
+    optional  string water_speed_kilometers_per_hour = 9;
+}

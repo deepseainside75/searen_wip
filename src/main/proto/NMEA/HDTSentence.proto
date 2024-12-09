@@ -1,0 +1,17 @@
+syntax = "proto3";
+package sentences;
+
+import "NMEA/data/source_identification.proto";
+import "NMEA/data/position.proto";
+
+option java_multiple_files = true;
+option optimize_for = SPEED;
+option java_package = "com.mgwy.proto.sentence";
+
+
+
+message PbHDT {
+    optional  data.PbSourceIdentification source = 1;
+    optional  double heading = 2;
+    optional  bool true_heading = 3;
+}

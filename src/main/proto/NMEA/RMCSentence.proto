@@ -1,0 +1,25 @@
+syntax = "proto3";
+package sentences;
+
+import "NMEA/data/source_identification.proto";
+import "NMEA/data/position.proto";
+
+option java_multiple_files = true;
+option optimize_for = SPEED;
+option java_package = "com.mgwy.proto.sentence";
+
+
+
+message PbRMC {
+    optional  data.PbSourceIdentification source = 1;
+    optional  double course_over_ground = 2;
+    optional  double course = 3;
+    optional  string direction_of_variation = 4;
+    optional  string FAA_mode = 5;
+    optional  string navigation_status = 6;
+    optional  double speed = 7;
+    optional  string data_validity_status = 8;
+    optional  double magnetic_variation = 9;
+    optional  data.PbPosition position = 10;
+    optional  uint64 timestamp_ms = 11;
+}

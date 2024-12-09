@@ -1,0 +1,23 @@
+syntax = "proto3";
+package sentences;
+
+import "NMEA/data/source_identification.proto";
+import "NMEA/data/position.proto";
+
+option java_multiple_files = true;
+option optimize_for = SPEED;
+option java_package = "com.mgwy.proto.sentence";
+
+
+
+message PbMWD {
+    optional  data.PbSourceIdentification source = 1;
+    optional  double wind_direction_t = 2;
+    optional  string wind_direction_true = 3;
+    optional  double wind_direction_m = 4;
+    optional  string wind_direction_magnetic = 5;
+    optional  double wind_speed_kn = 6;
+    optional  string wind_speed_knots = 7;
+    optional  double wind_speed_ms = 8;
+    optional  string wind_speed_meter_per_sec = 9;
+}

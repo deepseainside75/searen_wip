@@ -1,0 +1,17 @@
+syntax = "proto3";
+package sentences;
+
+import "NMEA/data/source_identification.proto";
+
+option java_multiple_files = true;
+option optimize_for = SPEED;
+option java_package = "com.vms.searenactivemqbridge.protobufs";
+
+message PbOilSpill {
+    optional  data.PbSourceIdentification source = 1;
+    optional int32 id = 2;
+    optional uint64 timestamp = 3;
+    optional double latitude = 4;
+    optional double longitude = 5;
+    optional double scale = 6;
+}

@@ -1,0 +1,21 @@
+syntax = "proto3";
+package sentences;
+
+import "NMEA/data/source_identification.proto";
+import "NMEA/data/position.proto";
+
+option java_multiple_files = true;
+option optimize_for = SPEED;
+option java_package = "com.mgwy.proto.sentence";
+
+
+
+message PbHDG {
+    optional  data.PbSourceIdentification source = 1;
+    optional  double magnetic_heading = 2;
+    optional  double magnetic_deviation = 3;
+    optional  string magnetic_deviation_direction = 4;
+    optional  double magnetic_variation = 5;
+    optional  string magnetic_variation_direction = 6;
+    optional  double heading = 7;
+}

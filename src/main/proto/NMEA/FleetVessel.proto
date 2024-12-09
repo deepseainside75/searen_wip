@@ -1,0 +1,36 @@
+syntax = "proto3";
+package sentences;
+
+import "NMEA/data/source_identification.proto";
+import "NMEA/data/AisPosition.proto";
+
+option java_multiple_files = true;
+option optimize_for = SPEED;
+option java_package = "com.mgwy.proto.sentence";
+
+message PbFleetVessel {
+    optional  data.PbSourceIdentification source = 1;
+    optional int32 mmsi = 2;
+    optional int32 imo = 3;
+    optional string call_sign = 4;
+    optional string name = 5;
+    optional int32 type = 6;
+    optional float width = 7;
+    optional float length = 8;
+    optional float draught = 9;
+    optional string destination = 10;
+    optional string data_eta = 11;
+    optional string date = 12;
+    optional int32 country_id = 13;
+    optional int32 dimensione_a = 14;
+    optional int32 dimensione_b = 15;
+    optional int32 dimensione_c = 16;
+    optional int32 dimensione_d = 17;
+    optional int32 state = 18;
+    optional int32 pos_fix_code = 19;
+    optional data.PbAisPosition posInfo = 21;
+	optional  double heading = 22;
+    optional  double pith = 23;
+    optional  double roll = 24;
+    optional  double sins = 25;
+}

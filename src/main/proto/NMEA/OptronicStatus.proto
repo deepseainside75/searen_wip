@@ -1,0 +1,26 @@
+syntax = "proto3";
+package data;
+
+option java_multiple_files = true;
+option optimize_for = SPEED;
+option java_package = "com.mgwy.proto.data";
+
+
+message PbOptronicStatus {
+  //mmsi of the vessel where it is mounted
+  optional int32 mmsi = 1;
+  //id of the camera in the vessel
+  optional int32 id = 2;
+  // latitude degrees
+  optional  double latitude = 3;
+  // longitude degrees
+  optional  double longitude = 4;
+  // bearing deg
+  optional  double bearing_true = 5;
+  // bearing true
+  optional  double bearing_relative = 6;
+  // field of view degree
+  optional  double fov = 7;
+  // focal range meters
+  optional  double range = 8;
+}

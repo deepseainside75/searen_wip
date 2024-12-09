@@ -1,0 +1,30 @@
+syntax = "proto3";
+package sentences;
+
+import "NMEA/data/source_identification.proto";
+import "NMEA/data/position.proto";
+
+option java_multiple_files = true;
+option optimize_for = SPEED;
+option java_package = "com.mgwy.proto.sentence";
+
+
+
+message PbTTM {
+    optional  data.PbSourceIdentification source = 1;
+    optional  int64 number = 2;
+    optional  float distance = 3;
+    optional  float bearing = 4;
+    optional  bool bearing_true = 5;
+    optional  float speed = 6;
+    optional  float course = 7;
+    optional  bool course_true = 8;
+    optional  float distance_cpa = 9;
+    optional  float time_cpa = 10;
+    optional  string speed_distance_units = 11;
+    optional  string target_name = 12;
+    optional  string target_status = 13;
+    optional  string target_reference = 14;
+    optional  string hhmmss_utc = 15;
+    optional  string acquisition_type = 16;
+}
