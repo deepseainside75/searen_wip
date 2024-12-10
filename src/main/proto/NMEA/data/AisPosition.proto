@@ -9,12 +9,12 @@ option java_package = "com.mgwy.proto.data";
 message PbAisPosition {
   optional int32 mmsi = 1;
   optional string navigational_status = 2;
-  optional float latitude = 3;
-  optional float longitude = 4;
-  optional float rot = 5;
-  optional float speed_over_ground = 6;
-  optional float course_over_ground = 7;
-  optional int32 heading = 8;
+  optional double latitude = 3;
+  optional double longitude = 4;
+  optional double rot = 5;
+  optional double speed_over_ground = 6;
+  optional double course_over_ground = 7;
+  optional double heading = 8;
   optional string t_stamp = 9;
   optional string date = 10;
 }
