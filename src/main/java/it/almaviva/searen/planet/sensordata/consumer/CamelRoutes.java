@@ -63,8 +63,8 @@ public class CamelRoutes extends RouteBuilder {
                     pbFleetVessel.getCallSign(),
                     pbAisPosition.getLatitude(), pbAisPosition.getLongitude(),
                     pbAisPosition.getHeading());
-                   /*  pbFleetVesselEntity.setMmsi(pbFleetVessel.getMmsi());
-                    pbFleetVesselEntity.setImo(pbFleetVessel.hasImo()?pbFleetVessel.getImo():-1); */
+                    pbFleetVesselEntity.setMmsi(pbFleetVessel.getMmsi());
+                    pbFleetVesselEntity.setImo(pbFleetVessel.getImo()); 
                     pbFleetVesselEntity.setCallSign(pbFleetVessel.getCallSign());
                     pbFleetVesselEntity.setTimestamp(Instant.now().atZone( ZoneId.of("UTC")));
                     pbFleetVesselEntity.setName(pbFleetVessel.getName());

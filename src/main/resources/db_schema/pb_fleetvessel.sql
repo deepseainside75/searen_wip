@@ -1,17 +1,18 @@
-CREATE TABLE vessels (
-    mmsi INT NOT NULL,
-    imo INT NOT NULL,
-    call_sign VARCHAR(255) NOT NULL,
-    "timestamp" timestamptz NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    type INT NOT NULL,
-    width FLOAT NOT NULL,
-    length FLOAT NOT NULL,
-    draught FLOAT NOT NULL,
-    latitude FLOAT NOT NULL,
-    longitude FLOAT NOT NULL,
-    heading FLOAT NOT NULL,
-    geom public.geometry(geometry, 4326) GENERATED ALWAYS AS (st_setsrid(st_makepoint(longitude, latitude::double precision), 4326)::geometry) STORED NULL,
-    CONSTRAINT vessels_pkey PRIMARY KEY (call_sign, "timestamp")
+CREATE TABLE public.vessels (
+	callsign varchar(255) NOT NULL,
+	"timestamp" timestamptz(6) NOT NULL,
+	draught float4 NOT NULL,
+	geom public.geometry(geometry, 4326) GENERATED ALWAYS AS (st_setsrid(st_makepoint(longitude, latitude::double precision), 4326)::geometry) STORED NULL,,
+	heading float8 NULL,
+	imo int4 NOT NULL,
+	latitude float8 NULL,
+	length float4 NOT NULL,
+	longitude float8 NULL,
+	mmsi int4 NOT NULL,
+	"name" varchar(255) NULL,
+	"type" int4 NOT NULL,
+	width float4 NOT NULL,
+	CONSTRAINT vessels_pkey PRIMARY KEY (callsign, "timestamp")
 );
 CREATE INDEX vessels_spatial_idx ON public.vessels USING gist (geom);
+CREATE INDEX vessels_timestamp_idx ON public.vessels("timestamp");
