@@ -8,6 +8,7 @@ import com.mgwy.proto.sentence.PbFleetVessel;
 import com.vms.searenactivemqbridge.protobufs.PbOilSpill;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import it.almaviva.searen.planet.sensordata.entity.OilSpillEntity;
+import it.almaviva.searen.planet.sensordata.entity.PbFleetVesselEntity;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
 import org.jgroups.util.ByteArray;
@@ -23,7 +24,7 @@ public class CamelRoutes extends RouteBuilder {
 
     @Override
     public void configure() {
-        /*
+       
         from("jms:queue:oil_spill")
                 .unmarshal()
                 .protobuf(PbOilSpill.class.getName())
@@ -43,7 +44,7 @@ public class CamelRoutes extends RouteBuilder {
                 .log("Saved entity from OIL_SPILL: ${body}"); // Log the received message
 
 
-         */
+         
         from("jms:queue:ais_vessel_info")
                 .unmarshal()
                 .protobuf(PbAISVesselInfo.class.getName())
@@ -57,11 +58,26 @@ public class CamelRoutes extends RouteBuilder {
                 .process(exchange -> {
                     PbFleetVessel pbFleetVessel = exchange.getIn().getBody(PbFleetVessel.class);
                     PbAisPosition pbAisPosition = pbFleetVessel.getPosInfo();
+                    PbFleetVesselEntity pbFleetVesselEntity = new PbFleetVesselEntity();
                     log.info("From Fleet Vessel call sign {} with lat {} lon {} and heading {}",
-                            pbFleetVessel.getCallSign(),
-                            pbAisPosition.getLatitude(), pbAisPosition.getLongitude(),
-                            pbAisPosition.getHeading());
-                });
+                    pbFleetVessel.getCallSign(),
+                    pbAisPosition.getLatitude(), pbAisPosition.getLongitude(),
+                    pbAisPosition.getHeading());
+                   /*  pbFleetVesselEntity.setMmsi(pbFleetVessel.getMmsi());
+                    pbFleetVesselEntity.setImo(pbFleetVessel.hasImo()?pbFleetVessel.getImo():-1); */
+                    pbFleetVesselEntity.setCallSign(pbFleetVessel.getCallSign());
+                    pbFleetVesselEntity.setTimestamp(Instant.now().atZone( ZoneId.of("UTC")));
+                    pbFleetVesselEntity.setName(pbFleetVessel.getName());
+                    pbFleetVesselEntity.setType(pbFleetVessel.getType());
+                    pbFleetVesselEntity.setWidth(pbFleetVessel.getWidth());
+                    pbFleetVesselEntity.setLength(pbFleetVessel.getLength());
+                    pbFleetVesselEntity.setDraught(pbFleetVessel.getDraught()); 
+                    pbFleetVesselEntity.setLatitude(pbAisPosition.getLatitude());
+                    pbFleetVesselEntity.setLongitude( pbAisPosition.getLongitude());
+                    pbFleetVesselEntity.setHeading(pbAisPosition.getHeading());
+                    exchange.getIn().setBody(pbFleetVesselEntity);
+                }).to("jpa:"+PbFleetVesselEntity.class.getName())
+                .log("Saved entity from PbFleetVessel: ${body}"); // Log the received message
 
 
         from("jms:queue:optronic_status")
