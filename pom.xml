@@ -102,6 +102,10 @@
             <groupId>org.amqphub.quarkus</groupId>
             <artifactId>quarkus-qpid-jms</artifactId>
         </dependency>
+         <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-websockets</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.quarkiverse.artemis</groupId>
             <artifactId>quarkus-artemis-jms</artifactId>

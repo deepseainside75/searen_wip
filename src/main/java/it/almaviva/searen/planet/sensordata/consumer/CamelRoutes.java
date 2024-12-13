@@ -1,6 +1,5 @@
 package it.almaviva.searen.planet.sensordata.consumer;
 
-import com.google.protobuf.ByteString;
 import com.mgwy.proto.data.PbAisPosition;
 import com.mgwy.proto.data.PbOptronicStatus;
 import com.mgwy.proto.sentence.PbAISVesselInfo;
@@ -9,14 +8,16 @@ import com.vms.searenactivemqbridge.protobufs.PbOilSpill;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import it.almaviva.searen.planet.sensordata.entity.OilSpillEntity;
 import it.almaviva.searen.planet.sensordata.entity.PbFleetVesselEntity;
+import it.almaviva.searen.planet.sensordata.socket.OptronicSocket;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
-import org.jgroups.util.ByteArray;
+
 
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-
+import com.google.protobuf.util.JsonFormat;
 @ApplicationScoped
 @RegisterForReflection(targets = {PbFleetVessel.Builder.class })
 
@@ -54,7 +55,6 @@ public class CamelRoutes extends RouteBuilder {
         from("jms:queue:fleet_vessel")
                 .unmarshal()
                 .protobuf(PbFleetVessel.class.getName())
-                .log("Message from fleet_vessel queue: ${body}")
                 .process(exchange -> {
                     PbFleetVessel pbFleetVessel = exchange.getIn().getBody(PbFleetVessel.class);
                     PbAisPosition pbAisPosition = pbFleetVessel.getPosInfo();
@@ -83,6 +83,18 @@ public class CamelRoutes extends RouteBuilder {
         from("jms:queue:optronic_status")
                 .unmarshal()
                 .protobuf(PbOptronicStatus.class.getName())
-                .log("Received message from optronic_status: ${body}"); // Log the received message
+                .log("Received message from optronic_status: ${body}")
+                .process(exchange -> {
+                        PbOptronicStatus pbOptronicStatus = exchange.getIn().getBody(PbOptronicStatus.class);
+                        String jsonMessage = convertProtobufToJson(pbOptronicStatus);
+                        OptronicSocket.broadcast(jsonMessage);
+                 }); // Log the received message
+    }
+    private String convertProtobufToJson(PbOptronicStatus message) {
+        try {
+            return JsonFormat.printer().print(message);
+        } catch (Exception e) {
+            throw new RuntimeException("Error converting Protobuf to JSON", e);
+        }
     }
 }
