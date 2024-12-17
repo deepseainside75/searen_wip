@@ -2,7 +2,7 @@ CREATE TABLE public.vessels (
 	callsign varchar(255) NOT NULL,
 	"timestamp" timestamptz(6) NOT NULL,
 	draught float4 NOT NULL,
-	geom public.geometry(geometry, 4326) GENERATED ALWAYS AS (st_setsrid(st_makepoint(longitude, latitude::double precision), 4326)::geometry) STORED NULL,,
+	geom public.geometry(geometry, 4326) GENERATED ALWAYS AS (st_setsrid(st_makepoint(longitude, latitude::double precision), 4326)::geometry) STORED NULL,
 	heading float8 NULL,
 	imo int4 NOT NULL,
 	latitude float8 NULL,
