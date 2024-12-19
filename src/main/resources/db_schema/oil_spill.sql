@@ -10,7 +10,7 @@ CREATE TABLE public.oil_spill (
 	latitude float4 NOT NULL,
 	longitude float8 NOT NULL,
 	radius float4 NOT NULL,
-	geom public.geometry(geometry, 4326) GENERATED ALWAYS AS (st_buffer(st_setsrid(st_makepoint(longitude, latitude::double precision), 4326)::geography, radius * 1000.0::double precision)::geometry) STORED NULL,
+	geom public.geometry(geometry, 4326) GENERATED ALWAYS AS (st_buffer(st_setsrid(st_makepoint(longitude, latitude::double precision), 4326)::geography, radius * 100.0::double precision)::geometry) STORED NULL,
 	CONSTRAINT oil_spill_pkey PRIMARY KEY (ident, "timestamp")
 );
 CREATE INDEX oil_spill_spatial_idx ON public.oil_spill USING gist (geom);

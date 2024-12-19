@@ -26,7 +26,7 @@ public class CamelRoutes extends RouteBuilder {
     @Override
     public void configure() {
        
-        from("jms:queue:oil_spill")
+        from("jms:topic:oil_spill")
                 .unmarshal()
                 .protobuf(PbOilSpill.class.getName())
                 .log("Message from oilspill queue: ${body}")
@@ -46,13 +46,13 @@ public class CamelRoutes extends RouteBuilder {
 
 
          
-        from("jms:queue:ais_vessel_info")
+        from("jms:topic:ais_vessel_info")
                 .unmarshal()
                 .protobuf(PbAISVesselInfo.class.getName())
                 .log("Received message from ais_vessel_info: ${body}"); // Log the received message
 
 
-        from("jms:queue:fleet_vessel")
+        from("jms:topic:fleet_vessel")
                 .unmarshal()
                 .protobuf(PbFleetVessel.class.getName())
                 .process(exchange -> {
@@ -80,7 +80,7 @@ public class CamelRoutes extends RouteBuilder {
                 .log("Saved entity from PbFleetVessel: ${body}"); // Log the received message
 
 
-        from("jms:queue:optronic_status")
+        from("jms:topic:optronic_status")
                 .unmarshal()
                 .protobuf(PbOptronicStatus.class.getName())
                 .log("Received message from optronic_status: ${body}")
