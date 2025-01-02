@@ -1,16 +1,14 @@
+package it.almaviva.searen.planet.test.sensordata;
+
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.mgwy.proto.data.PbAisPosition;
 import com.mgwy.proto.sentence.PbFleetVessel;
-import com.vms.searenactivemqbridge.protobufs.PbOilSpill;
-import io.netty.buffer.ByteBufInputStream;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 class ProtoBufTest {

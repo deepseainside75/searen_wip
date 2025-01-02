@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>it.almaviva.searen.planet.consumer</groupId>
     <artifactId>gp-searen-consumer</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.4-SNAPSHOT</version>
 
     <properties>
         <compiler-plugin.version>3.13.0</compiler-plugin.version>
@@ -44,18 +44,12 @@
     </dependencyManagement>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>org.hibernate</groupId>-->
-<!--            <artifactId>hibernate-spatial</artifactId>-->
-<!--            <version>5.6.15.Final</version>-->
-<!--        </dependency>-->
+        <!-- Liquibase specific dependencies -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-liquibase</artifactId>
+        </dependency>
 
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.hibernate/hibernate-tools &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.hibernate</groupId>-->
-<!--            <artifactId>hibernate-tools</artifactId>-->
-<!--            <version>5.6.15.Final</version>-->
-<!--        </dependency>-->
 
         <!-- Quarkus Camel JPA -->
         <dependency>

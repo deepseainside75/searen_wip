@@ -1,0 +1,22 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog
+    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+
+    <changeSet id="gp_searen_consumer.202501021532.001" author="a.nicotera">
+        <sql>CREATE EXTENSION IF NOT EXISTS postgis;</sql>
+    </changeSet>
+    <changeSet id="gp_searen_consumer.202501021532.002" author="a.nicotera" >
+        <sqlFile path="db/ddl/oil_spill.sql" />
+    </changeSet>
+
+    <changeSet id="gp_searen_consumer.202501021532.003" author="a.nicotera">
+        <sqlFile path="db/ddl/pb_fleetvessel.sql" />
+    </changeSet>
+</databaseChangeLog>

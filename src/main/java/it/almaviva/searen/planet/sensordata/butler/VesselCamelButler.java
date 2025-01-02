@@ -1,14 +1,15 @@
 package it.almaviva.searen.planet.sensordata.butler;
 import it.almaviva.searen.planet.sensordata.entity.PbFleetVesselEntity;
 
+import it.almaviva.searen.planet.sensordata.utils.Utils;
 import jakarta.enterprise.context.ApplicationScoped;
 
+import jakarta.inject.Inject;
 import org.apache.camel.builder.RouteBuilder;
 
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import static it.almaviva.searen.planet.sensordata.utils.Utils.getTableName;
 
 
 @ApplicationScoped
@@ -26,11 +27,15 @@ public class VesselCamelButler extends RouteBuilder {
     @ConfigProperty (name="consumer.butler.vessel.pgspan", defaultValue = "1 DAY" )
     private String messageOlderThen;
 
+    @Inject
+    Utils utils;
+
 
 
     @Override
     public void configure() {
-        String deleteQuery = "delete from "+ getTableName(PbFleetVesselEntity.class)+" os where os.timestamp < NOW() - INTERVAL '"+messageOlderThen+"'";
+        String deleteQuery = "delete from "+utils.getSchemaName(PbFleetVesselEntity.class)+"."+
+                utils.getTableName(PbFleetVesselEntity.class)+" os where os.timestamp < NOW() - INTERVAL '"+messageOlderThen+"'";
         String routeID = CANONICAL_NAME + "_ButlerCronRoute";
 
 

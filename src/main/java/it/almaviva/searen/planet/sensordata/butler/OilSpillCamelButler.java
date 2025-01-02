@@ -1,17 +1,22 @@
 package it.almaviva.searen.planet.sensordata.butler;
 import it.almaviva.searen.planet.sensordata.entity.OilSpillEntity;
 
+import it.almaviva.searen.planet.sensordata.utils.Utils;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.apache.camel.builder.RouteBuilder;
 
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import static it.almaviva.searen.planet.sensordata.utils.Utils.getTableName;
+
 
 
 @ApplicationScoped
 public class OilSpillCamelButler extends RouteBuilder {
+
+    @Inject
+    Utils utils;
 
 
     private final String DEFAULT_TIME_ZONE = "UTC";
@@ -29,7 +34,8 @@ public class OilSpillCamelButler extends RouteBuilder {
 
     @Override
     public void configure() {
-        String deleteQuery = "delete from "+ getTableName(OilSpillEntity.class)+" os where os.timestamp < NOW() - INTERVAL '"+messageOlderThen+"'";
+        String deleteQuery = "delete from "+ utils.getSchemaName(OilSpillEntity.class)+"."+
+                utils.getTableName(OilSpillEntity.class)+" os where os.timestamp < NOW() - INTERVAL '"+messageOlderThen+"'";
         String routeID = CANONICAL_NAME + "_ButlerCronRoute";
 
 
